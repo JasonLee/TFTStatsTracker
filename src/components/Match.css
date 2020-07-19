@@ -1,0 +1,10 @@
+ul li{
+    display: inline;
+    padding: 5px;
+}
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
