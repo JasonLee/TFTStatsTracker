@@ -1,0 +1,83 @@
+
+.player-page {
+    background-color: #545454;
+    color: white;
+}
+
+.player-banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.match-container {
+    margin: 0 auto; 
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    flex-direction: column;
+    padding: 10px;
+    border:1px solid black;
+    background: gray;
+    max-width: 1140px;
+    box-sizing: inherit;
+}
+
+.more-matches {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+
+.current_player_match > div{
+    background: #336091;
+    font-size: 18px;
+}
+
+.player_match {
+    border:1px solid black;
+    display: table;
+    padding: 5px;
+    background: #3a6ea5;
+    font-size: 16px;
+}
+
+input[type=button] {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/* Units*/
+ul li{
+    display: inline;
+    padding: 5px;
+}
+
+.barchart {
+    display: inline-block;
+    width: 800px !important;
+    background-color: white;
+}
+
+.rank-image {
+    width: 150px;
+}
+
+.profile-icon {
+    width: 150px;
+    border-radius: 50%;
+}
