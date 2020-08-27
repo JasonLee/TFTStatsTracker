@@ -1,6 +1,9 @@
 const express = require('express')
 const axios = require('axios')
+const db = require('./db.js');
+
 require('dotenv').config()
+
 
 const app = express()
 
@@ -93,6 +96,12 @@ app.get('/api/rank', function(req, res) {
         res.send(return_data)
     }).catch(function (error) {
         console.log(error);
+    });
+});
+
+app.get('/api/test', function(req, res) {
+    db.test((err, documents) => {
+        res.send(documents);
     });
 });
 
