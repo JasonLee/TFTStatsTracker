@@ -18,6 +18,11 @@ exports.test = (callback) => {
     db.collection('matches').find().toArray((err, result) => {
         callback(err, result);
     });
+}
 
+exports.test_add = (data, callback) => {
+    db.collection('matches').insertOne(data, (acknowledged , insertedId ) => {
+        callback(acknowledged , insertedId);
+    });
 }
 
