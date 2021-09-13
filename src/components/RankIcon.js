@@ -4,7 +4,7 @@ import challenger from '../Assets/tier-icons/tier-icons-base/challenger.png';
 
 function importAll(r) {
     let images = {};
-    r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+    r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); return item });
     return images;
 }
 
@@ -17,9 +17,8 @@ export default function RankIcon(props) {
     let file_name = props.tier + '_' + props.division + '.png';
     file_name = file_name.toLowerCase();
 
-    console.log(props.tier  !== "CHALLENGER")
     if (props.tier) {
-        if (props.tier != "CHALLENGER") {
+        if (props.tier !== "CHALLENGER") {
             return (
                 <img src={images[file_name].default} alt={file_name} className="rank-image" />
             );
