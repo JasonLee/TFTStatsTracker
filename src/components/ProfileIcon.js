@@ -1,19 +1,22 @@
 import React from 'react';
 
-const importAll = require =>
-  require.keys().reduce((acc, next) => {
-    acc[next.replace("./", "")] = require(next);
-    return acc;
-  }, {});
+function importAll(r) {
+  let images = {};
+  r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+  return images;
+}
 
-
-const images = importAll(require.context('../Assets/profileicon/', true, /\.png$/));
+const images = importAll(require.context('../Assets/profileicon/', false, /\.png$/));
 
 
 export default function ProfileIcon(props) {
     const icon = props.id;
 
-    return (
-        <img src={images[icon + '.png']} alt={icon} className="profile-icon" />
-    );
+    if(icon) {
+      return (
+        <img src={images[icon + '.png'].default} alt={icon} className="profile-icon" />
+      );
+    }else {
+      return( <> </>)
+    } 
 }
