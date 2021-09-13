@@ -33,6 +33,7 @@ app.get('/api/player', function(req, res) {
             axios.get(`https://na1.api.riotgames.com/tft/league/v1/entries/by-summoner/${summonerId}`, jsonHeader)
             .then(result => {
                 const data = result.data[0];
+                console.log(data)
                 return_data["tier"] = data.tier;
                 return_data["rank"] = data.rank;
                 return_data["leaguePoints"] = data.leaguePoints;
