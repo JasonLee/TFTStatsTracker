@@ -1,29 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
+import test from '../Assets/traits/nightbringer.png'
+
+const importAll = require =>
+  require.keys().reduce((acc, next) => {
+    acc[next.replace("./", "")] = require(next);
+    return acc;
+  }, {});
+
 
 
 // NOTE: TRAITS API REQUEST HAS A BUG - https://github.com/RiotGames/developer-relations/issues/330
-class Traits extends Component {
-    constructor(props) {
-        super(props);
-        this.state  = {
-            activeTraits: {}
-        };
-       
-    }
+export default function Traits(props) {
+    const images = importAll(require.context('../Assets/traits/', true, /\.png$/));
+    
+    const traitItems = props.traits.map((trait) => {
+        if (trait.tier_current > 0) {
+            const imgPath = trait.name.substring(5).toLowerCase() + ".png";
+            const imgSrc = images[imgPath].default;
 
-    // What is actually displayed
-    render() {
-        return (
-            <div>
-                TRAITS: <ul>
-                            {this.props.traits.map(trait => 
-                                (trait.tier_current > 0) &&
-                                    <li key={trait.name}>{trait.name}({trait.tier_current}) {trait.num_units}</li>
-                            )}
-                        </ul>
-            </div>
-        );
-    }
+            return <img src={ imgSrc } style={{ width: 32, padding: 5 }} key={trait.name} alt={trait.name} />
+        }
+    });
+
+    return (
+        <div>
+            TRAITS:
+           { traitItems }
+           {<img src={test} style={{ width: 32, padding: 5 }} />}
+        </div>
+    );
+
 }
-
-export default Traits;

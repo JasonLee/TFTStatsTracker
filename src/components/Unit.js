@@ -37,6 +37,9 @@ export default function Units(props) {
       }
 
     return (
-        <li><img src={images[unit.substring(5).toLowerCase() + '.png']} alt={unit} style={{ borderColor: unit_color}} border="4"/>  ({props.unit.tier})</li>
+            <div style={{padding:5}}>
+                <img src={images[unit + '.png'].default} alt={unit} style={{ borderColor: unit_color, width: 64}} border="4" /><br/>
+                ({props.unit.tier})
+            </div>
     );
 }

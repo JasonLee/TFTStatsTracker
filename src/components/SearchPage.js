@@ -48,7 +48,7 @@ class SearchPage extends Component {
                     display:"flex",
                     justifyContent:"center",
                     alignItems:"Center",
-                    height:"80vh"  
+                    height:"80vh"
                 }}>
                     <Col xs={6} >
                         <InputGroup size="lg" onSubmit={this.onSubmit}>

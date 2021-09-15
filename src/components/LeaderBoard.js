@@ -33,7 +33,7 @@ class LeaderBoard extends Component {
     // What is actually displayed
     render() {
         return (
-            <Table bordered hover size="sm">
+            <Table bordered hover size="sm" style={{width: "70vw"}}>
                 <thead>
                     <tr>
                         <th>#</th>
