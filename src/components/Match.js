@@ -40,13 +40,6 @@ class Match extends Component {
         // Game version has a number in version which denotes ranked or normal game.
         let queue_id = this.props.match_data.info.queue_id;
 
-        for (const player of this.state.players) {
-            if(player.puuid === this.props.current_player) {
-                current_player = player;
-                break;
-            }
-        }
-
         if(queue_id === 1090){
             game_type = "Normal";
         }else{
