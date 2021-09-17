@@ -1,12 +1,5 @@
 import React from 'react';
-
-function importAll(r) {
-  let images = {};
-  r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); return item});
-  return images;
-}
-
-const images = importAll(require.context('../Assets/profileicon/', false, /\.png$/));
+import { profileImages } from './Images.js';
 
 
 export default function ProfileIcon(props) {
@@ -14,7 +7,7 @@ export default function ProfileIcon(props) {
 
     if(icon) {
       return (
-        <img src={images[icon + '.png'].default} alt={icon} className="profile-icon" />
+        <img src={profileImages[icon + '.png'].default} alt={icon} className="profile-icon" />
       );
     }else {
       return(<> </>)
