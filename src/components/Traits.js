@@ -9,6 +9,8 @@ export default function Traits(props) {
             const imgSrc = traitImages[imgPath].default;
 
             return <img src={ imgSrc } style={{ width: 32, padding: 5 }} key={trait.name} alt={trait.name} />
+        }else{
+            return <></>;
         }
     });
 

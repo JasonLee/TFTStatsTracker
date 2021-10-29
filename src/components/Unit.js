@@ -32,7 +32,7 @@ export default function Units(props) {
         const imgPath = itemID + ".png";
         const imgSrc = itemImages[imgPath].default;
 
-        return <img src={ imgSrc } style={{ width: 32 }} />
+        return <img src={ imgSrc } alt={itemID} style={{ width: 32 }} />
     });
 
     return (
