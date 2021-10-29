@@ -2,6 +2,8 @@ const express = require('express')
 const axios = require('axios')
 require('dotenv').config()
 
+const db = require('./database.js');
+
 const app = express()
 
 let jsonHeader = {
@@ -14,7 +16,7 @@ let jsonHeader = {
     }
 };
 
-app.get('/api/challenger', function(req, res) {
+app.get('/api/challenger', (req, res) => {
     axios.get("https://na1.api.riotgames.com/tft/league/v1/challenger", jsonHeader)
     .then(result => {
         res.send(result.data)
@@ -23,23 +25,39 @@ app.get('/api/challenger', function(req, res) {
     });
 });
 
-app.get('/api/player', function(req, res) {
+app.get('/api/player', async (req, res) => {
         let name = req.query.name;
+
+        const existingPlayer = await db.getPlayer({name: name});
+
+        if (existingPlayer) {
+            console.log("Printing from DB")
+            res.send(existingPlayer)
+            return
+        }
+    
         axios.get(`https://na1.api.riotgames.com/tft/summoner/v1/summoners/by-name/${name}`, jsonHeader)
         .then(result => {
             let return_data = result.data;
             let summonerId = result.data.id;
 
+            console.log(return_data)
+
             axios.get(`https://na1.api.riotgames.com/tft/league/v1/entries/by-summoner/${summonerId}`, jsonHeader)
             .then(result => {
                 const data = result.data[0];
-                console.log(data)
+                // console.log(data)
+                return_data["summonerId"] = summonerId;
+                return_data["name"] = data.summonerName;
                 return_data["tier"] = data.tier;
                 return_data["rank"] = data.rank;
                 return_data["leaguePoints"] = data.leaguePoints;
                 return_data["wins"] = data.wins;
                 return_data["losses"] = data.losses;
                 
+                console.log("Adding to DB")
+                db.addPlayer(return_data);
+
                 res.send(return_data)
             }).catch(function (error) {
                 console.log(error);
@@ -52,7 +70,7 @@ app.get('/api/player', function(req, res) {
 
 app.get('/api/matches', function(req, res) {
     let puuid = req.query.puuid;
-    axios.get(`https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids?count=5`, jsonHeader)
+    axios.get(`https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/${puuid}/ids?count=3`, jsonHeader)
     .then(result => {
         let matches = [];
         let promises = [];
@@ -72,29 +90,72 @@ app.get('/api/matches', function(req, res) {
     });
 });
 
-app.get('/api/get_name', function(req, res) {
-    let puuid = req.query.puuid;
-    axios.get(`https://na1.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}`, jsonHeader)
-    .then(result => {
-        let return_data = {"name":result.data.name, "profileIconId":result.data.profileIconId, "summonerLevel":result.data.summonerLevel};
+app.get('/api/get_name', async (req, res) => {
+    const puuid = req.query.puuid;
 
+    const existingPlayer = await db.getPlayer({puuid: puuid});
+
+    if (existingPlayer) {
+        const data = {
+            "name": existingPlayer.name, 
+            "profileIconId": existingPlayer.profileIconId, 
+            "summonerLevel": existingPlayer.summonerLevel
+        }
+        console.log("Printing from DB")
+        res.send(data)
+        return
+    }
+
+
+    // TODO: Future issues with half completed player entries in DB
+    axios.get(`https://na1.api.riotgames.com/tft/summoner/v1/summoners/by-puuid/${puuid}`, jsonHeader).then(result => {
+
+        const return_data = {
+            "name":result.data.name,
+            "profileIconId":result.data.profileIconId,
+            "summonerLevel":result.data.summonerLevel
+        };
+        
+        db.addPlayer(result.data);
         res.send(return_data)
     }).catch(function (error) {
         console.log(error);
     });
 });
 
-app.get('/api/rank', function(req, res) {
+// UNUSED
+app.get('/api/rank', async (req, res) => {
     let summonerId = req.query.summonerId;
+
+    const existingPlayer = await db.getPlayer({summonerId: summonerId});
+
+    if (existingPlayer) {
+        console.log("Printing from DB")
+        res.send(existingPlayer)
+        return
+    }
+    
     axios.get(`https://na1.api.riotgames.com/tft/league/v1/entries/by-summoner/${summonerId}`, jsonHeader)
     .then(result => {
-        const data = result.data;
-        let return_data = {"tier": data.tier, "rank":data.rank, "leaguePoints": data.leaguePoints, "wins": 72, "losses": data.losses};
+        let return_data = {}
+        const data = result.data[0];
+        // console.log(data)
+        return_data["summonerId"] = summonerId;
+        return_data["name"] = data.summonerName;
+        return_data["tier"] = data.tier;
+        return_data["rank"] = data.rank;
+        return_data["leaguePoints"] = data.leaguePoints;
+        return_data["wins"] = data.wins;
+        return_data["losses"] = data.losses;
+        
+        console.log("Adding to DB")
+        db.addPlayer(return_data);
 
-        res.send(return_data)
+        res.send(data)
     }).catch(function (error) {
         console.log(error);
     });
+    
 });
 
 app.listen(8000, function() {

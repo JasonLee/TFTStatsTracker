@@ -23,7 +23,6 @@
     align-items: left;
     flex-direction: column;
     padding: 10px;
-    border:1px solid black;
     background: gray;
     max-width: 1140px;
     box-sizing: inherit;
@@ -44,7 +43,6 @@
     border:1px solid black;
     display: table;
     padding: 5px;
-    background: #3a6ea5;
     font-size: 16px;
 }
 

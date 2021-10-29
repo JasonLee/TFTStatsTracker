@@ -35,14 +35,14 @@ class MatchPlayer extends Component {
             <div className="player_match">
             {/* slight problem the component doesn't update due functions calls updating it are ONMOUNT*/}
                 <h3>{this.state.name} - {this.props.player.placement} - LVL {this.props.player.level}</h3>
-                <Trait traits={this.props.player.traits}/>
+                <Trait key={this.props.player.puuid} traits={this.props.player.traits}/>
                 UNITS: 
                 <div style={{display: "flex", flexDirection: "row"}}>
 
-                    {this.props.player.units.map(function(unit,index) {
+                    {this.props.player.units.map((unit,index) => {
                         return (
                             <Unit unit={unit} key={index}/>
-                        )
+                        );
                     })}
                 </div>
             </div>
