@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+
+const  { playerSchema, matchSchema } = require('./dbSchemas'); 
 
 main(console.log('Connected to Database')).then().catch(err => console.log(err));
 
@@ -7,25 +8,8 @@ async function main() {
     await mongoose.connect('mongodb://localhost:27017/tft');
 }
 
-const playerSchema = new Schema({
-    id: String,
-    summonerId: String,
-    accountId: String,
-    puuid: String, 
-    profileIconId: Number,
-    summonerLevel: Number,
-    name:  String,
-    region: String,
-    tier: String,
-    rank: String,
-    leaguePoints: String, 
-    wins: Number,
-    losses: Number
-}, {
-    timestamps: true
-});
-
-const Player = mongoose.model('players', playerSchema, );
+const Player = mongoose.model('players', playerSchema);
+const Match = mongoose.model('matches', matchSchema);
 
 // const instance = new Player({playerName: "Doublelift"});
 
@@ -44,4 +28,30 @@ exports.addPlayer = (plr) => {
     instance.save(function (err) {
         if (!err) console.log('Success!');
     });
+}
+
+exports.updatePlayer = async (criteria, plr) => {
+    player = await this.getPlayer(criteria);
+
+    player = plr;
+    this.addPlayer(player);
+}
+
+exports.getMatch = async (criteria) => {
+    const match = await Match.findOne(criteria).exec();
+    return match;
+}
+
+exports.addMatch = (mth) => {
+    const instance = new Match(mth);
+
+    instance.save(function (err) {
+        if (!err) console.log('Success!');
+        if (err) console.err(err);
+    });
+}
+
+exports.getPlayerMatches = async (puuid) => {
+    const matches = await Match.find({"metadata.participants": puuid}).exec();
+    return matches;
 }
