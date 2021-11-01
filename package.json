@@ -2,6 +2,9 @@
   "name": "tft-stats-tracker",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
@@ -31,8 +34,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --config=jest.config.js",
-    "eject": "react-scripts eject"
+    "test_old": "jest --config=jest.config.js",
+    "test": "mocha ./test/*.js",
+    "eject": "react-scripts eject",
+    "debug": "nodemon -L --inspect=0.0.0.0:9229 server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,6 +58,9 @@
   "devDependencies": {
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "babel-plugin-require-context-hook": "^1.0.0",
-    "enzyme": "^3.11.0"
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "enzyme": "^3.11.0",
+    "mocha": "^9.1.3"
   }
 }

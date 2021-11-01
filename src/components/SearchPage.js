@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import RegionSelect from './RegionSelect';
 
 class SearchPage extends Component {
     constructor(props) {
@@ -58,8 +59,9 @@ class SearchPage extends Component {
                                 onChange={this.handleChange}
                                 onKeyDown={this._handleKeyDown}
                             />
+                            <RegionSelect />
                             <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faPaperPlane} />
+                                <FontAwesomeIcon icon={faPaperPlane} />
                             </InputGroup.Text>
                         </InputGroup>
                     </Col>

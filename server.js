@@ -13,7 +13,7 @@ let jsonHeader = {
         "Accept-Language": "en-GB,en;q=0.9,zh-MO;q=0.8,zh;q=0.7,ja;q=0.6",
         "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
         "Origin": "https://developer.riotgames.com",
-        "X-Riot-Token": process.env.api_key
+        "X-Riot-Token": process.env.API_KEY
     }
 };
 
@@ -201,6 +201,12 @@ app.get('/api/rank', async (req, res) => {
     
 });
 
+app.get('/api/',  (req, res) => {
+    res.send("Hello World")
+});
+
 app.listen(8000, function() {
     console.log('Express started');
 });
+
+module.exports = app
