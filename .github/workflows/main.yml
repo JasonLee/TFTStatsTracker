@@ -6,9 +6,9 @@ name: CI to Docker
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ master, dev ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, dev ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -32,13 +32,17 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           
       - name: Setup Docker Build
+        id: buildx
+        uses: docker/build-push-action@v1
+        
+      - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with: 
           context: ./
-          file: docker-compose up -d
+          file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/TFTStatsTracker:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tftstatstracker:latest
           
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
