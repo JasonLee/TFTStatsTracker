@@ -5,7 +5,7 @@ const  { playerSchema, matchSchema } = require('./dbSchemas');
 main(console.log('Connected to Database')).then().catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect('mongodb://localhost:27017/tft');
+    await mongoose.connect(process.env.CONNECTION_STRING);
 }
 
 const Player = mongoose.model('players', playerSchema);
