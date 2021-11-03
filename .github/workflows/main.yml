@@ -38,7 +38,7 @@ jobs:
           context: ./
           file: docker-compose up -d
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/TFTStatsTracker:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tftstatstracker:latest
           
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
