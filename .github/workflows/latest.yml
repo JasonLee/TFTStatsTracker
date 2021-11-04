@@ -41,7 +41,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/tftstatstracker:latest
+          tags: ghcr.io/jasonlee/tftstatstracker:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
