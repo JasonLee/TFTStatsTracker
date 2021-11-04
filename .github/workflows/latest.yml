@@ -28,13 +28,12 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Setup Docker Build
         id: buildx
         uses: docker/build-push-action@v1
         
-
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
