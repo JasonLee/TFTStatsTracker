@@ -60,7 +60,26 @@ const matchSchema = new Schema({
     
 });
 
+
+const itemSchema = new Schema({
+    desc: String,
+    effects: {},
+    from: [],
+    icon: String,
+    id: {
+        type: Number,
+        unique: true
+    },
+    name: String,
+    unique: Boolean
+});
+
+const championSchema = new Schema({
+    
+});
+
 module.exports = {
     playerSchema,
-    matchSchema
+    matchSchema,
+    itemSchema
 };
