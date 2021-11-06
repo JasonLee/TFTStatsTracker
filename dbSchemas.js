@@ -74,6 +74,10 @@ const itemSchema = new Schema({
     unique: Boolean
 });
 
+const championSchema = new Schema({
+    
+});
+
 module.exports = {
     playerSchema,
     matchSchema,
