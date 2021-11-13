@@ -30,17 +30,21 @@ export default function Units(props) {
 
     const itemImg = items.map((itemID) => {
         const imgPath = itemID + ".png";
+
+        if (!itemImages[imgPath]){
+            return <div> {itemID} </div>
+        }
         const imgSrc = itemImages[imgPath].default;
 
         return <img src={ imgSrc } alt={itemID} style={{ width: 32 }} />
     });
 
     return (
-            <div style={{padding:5}}>
-                <img src={champImages[unit + '.png'].default} alt={unit} style={{ borderColor: unit_color, width: 64}} border="4" />
-                ({props.unit.tier})
-                <br/>
-                { itemImg }
-            </div>
+        <div style={{padding:5}}>
+            {/* <img src={champImages[unit + '.png'].default || ""} alt={unit} style={{ borderColor: unit_color, width: 64}} border="4" /> */}
+            ({props.unit.tier})
+            <br/>
+            { itemImg }
+        </div>
     );
 }

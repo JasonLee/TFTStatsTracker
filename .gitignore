@@ -26,3 +26,5 @@ yarn-error.log*
 Assets/
 
 .docker-compose.dev.yml
+
+.my-aws-key.pem
