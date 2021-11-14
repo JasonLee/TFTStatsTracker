@@ -41,7 +41,7 @@ export default function Units(props) {
 
     return (
         <div style={{padding:5}}>
-            {/* <img src={champImages[unit + '.png'].default || ""} alt={unit} style={{ borderColor: unit_color, width: 64}} border="4" /> */}
+            {/* <img src={champImages[unit + '.png'].default} alt={unit} style={{ borderColor: unit_color, width: 64}} border="4" /> */}
             ({props.unit.tier})
             <br/>
             { itemImg }
