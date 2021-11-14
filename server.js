@@ -1,5 +1,4 @@
 const express = require('express')
-const axios = require('axios')
 require('dotenv').config()
 
 const db = require('./database.js');
@@ -71,10 +70,6 @@ app.get('/api/player', async (req, res) => {
 app.get('/api/matches', async (req, res) => {
     const puuid = req.query.puuid;
     let matches = [];
-    // matches = await db.getPlayerMatches(puuid);
-    // console.log(matches);
-
-    // res.send(matches);
 
     const matchesData = await getPlayerMatches(puuid);
 
