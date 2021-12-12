@@ -11,6 +11,9 @@ COPY ["package.json", "package-lock.json*", "./"]
 
 FROM base as prod
 RUN npm ci --production
+
+EXPOSE 8000
+
 COPY . .
 CMD [ "node", "server.js" ]
 
