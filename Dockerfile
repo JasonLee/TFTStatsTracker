@@ -1,21 +1,13 @@
-FROM node:14.15.4 as base
+FROM node:14-alpine
 
 WORKDIR /app
 
 COPY ["package.json", "package-lock.json*", "./"]
 
-# FROM base as test
-# RUN npm ci
-# COPY . .
-# RUN npm run test
-
-FROM base as prod
 RUN npm ci --production
-
-EXPOSE 8000
-
 COPY . .
 CMD [ "node", "server.js" ]
 
+EXPOSE 8000
 
 
