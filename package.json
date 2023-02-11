@@ -21,7 +21,7 @@
     "express": "^4.17.1",
     "luxon": "^1.24.1",
     "mongoose": "^6.0.12",
-    "nodemon": "^2.0.12",
+    "nodemon": "^2.0.20",
     "query-string": "^6.13.1",
     "react": "^16.14.0",
     "react-bootstrap": "^2.0.0-beta.6",
